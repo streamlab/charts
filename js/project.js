@@ -35,7 +35,8 @@ $.getJSON('data/stream_7JLDOZZvLJFjm3lyoAL4.json',function(readings) {
   $(function () {
       $('#container').highcharts({
           chart: {
-              type: 'spline'
+            type: 'spline',
+            height: 600
           },
           title: {
               text: 'Live Streamlab Riffle Data'
@@ -61,7 +62,7 @@ $.getJSON('data/stream_7JLDOZZvLJFjm3lyoAL4.json',function(readings) {
           },
           tooltip: {
               headerFormat: '<b>{series.name}</b><br>',
-              pointFormat: '{point.x:%b %e %k:%I}<br>Reading: {point.y:.2f}'
+              pointFormat: '{point.x:%b %e %k:%M UTC}<br>Reading: {point.y:.2f}'
           },
 
           plotOptions: {
