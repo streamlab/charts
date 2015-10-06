@@ -2,14 +2,14 @@ var riffle2 = [];
 var riffle4 = [];
 var riffle6 = [];
 
-$.getJSON('data/stream_7JLDOZZvLJFjm3lyoAL4.json',function(readings) {
+$.getJSON('data/data.json',function(readings) {
 
   for (i = 0; i <= readings.length - 1; i++) {
     
     // parse the timestamp into moment.js
     var readingtime = moment.utc(readings[i].timestamp);
     
-    if (readingtime.isAfter('2015-10-03')) {
+    if (readingtime.isAfter('2015-10-05 17:00:00')) {
     
       readingtime = readingtime.valueOf();
   
