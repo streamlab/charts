@@ -9,9 +9,13 @@ $.getJSON('data/data.json',function(readings) {
     // parse the timestamp into moment.js
     var readingtime = moment.utc(readings[i].timestamp);
     
-    if (readingtime.isAfter('2015-10-05 17:00:00')) {
+    if (readingtime.isAfter('2015-10-05 19:01:00')) {
     
+      // convert timestamp to Unix time (milleseconds since Jan 1, 1970)
       readingtime = readingtime.valueOf();
+      
+      // account for shift in time zone to make local time EDT
+      readingtime = readingtime - (1000*60*240);
   
       
       if (readings[i].device_id == "RiffleBottle2") {
@@ -29,9 +33,6 @@ $.getJSON('data/data.json',function(readings) {
   
   }
   
-  
-  console.log(riffle4);
-  
   $(function () {
       $('#container').highcharts({
           chart: {
@@ -39,49 +40,55 @@ $.getJSON('data/data.json',function(readings) {
             height: 600
           },
           title: {
-              text: 'Live Streamlab Riffle Data'
+              text: 'Live Data: The Monongahela in Morgantown'
           },
           subtitle: {
-              text: 'More info at streamlab.cc'
+              text: 'DIY Water Sensors / WVU Streamlab Project / streamlab.cc'
           },
           xAxis: {
               type: 'datetime',
-              dateTimeLabelFormats: { // don't display the dummy year
-                   day:"%b %e"
+              dateTimeLabelFormats: { 
+                   day:"%b %e",
+                  hour:"%l%P"
               },
               title: {
-                  text: 'Time'
+                  text: 'Date/Time'
                 
               }
           },
           yAxis: {
               title: {
-                  text: 'Conductivity'
+                  text: 'Conductivity (Hz)'
               },
               min: 0
           },
           tooltip: {
               headerFormat: '<b>{series.name}</b><br>',
-              pointFormat: '{point.x:%b %e %k:%M UTC}<br>Reading: {point.y:.2f}'
+              pointFormat: '{point.x:%b %e, %l:%M %P EDT}<br>Reading: {point.y:.2f} Hz'
           },
 
           plotOptions: {
               spline: {
                   marker: {
-                      enabled: true
+                    enabled: true,
+                    symbol: 'circle'
                   }
               }
           },
 
           series: [{
-            name: "Riffle 2",
-            data: riffle2
+            name: "Above Ind Site & Dam",
+            data: riffle6,
+            color: '#7fc97f'
+
           }, {
-            name: "Riffle 4",
-            data: riffle4
+            name: "Between Ind Site & Dam",
+            data: riffle4,
+            color: '#beaed4'
           },{ 
-            name: "Riffle 6",
-            data: riffle6
+            name: "Below Dam",
+            data: riffle2,
+            color: '#fdc086'
           }]
       });
   });
