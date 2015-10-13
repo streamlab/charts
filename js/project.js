@@ -37,8 +37,7 @@ $.getJSON('data/data.json',function(readings) {
       $('#container').highcharts({
           chart: {
             type: 'spline',
-            zoomType: 'x',
-            height: 600
+            height: 800
           },
           title: {
               text: 'Live Data: The Monongahela in Morgantown'
