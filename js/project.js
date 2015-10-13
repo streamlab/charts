@@ -37,6 +37,7 @@ $.getJSON('data/data.json',function(readings) {
       $('#container').highcharts({
           chart: {
             type: 'spline',
+            zoomType: 'x',
             height: 600
           },
           title: {
@@ -60,7 +61,8 @@ $.getJSON('data/data.json',function(readings) {
               title: {
                   text: 'Conductivity (Hz)'
               },
-              min: 0
+              min: 0,
+              max: 600
           },
           tooltip: {
               headerFormat: '<b>{series.name}</b><br>',
@@ -71,8 +73,10 @@ $.getJSON('data/data.json',function(readings) {
               spline: {
                   marker: {
                     enabled: true,
-                    symbol: 'circle'
-                  }
+                    symbol: 'circle',
+                    radius: 2
+                  },
+                  lineWidth: 1
               }
           },
 
